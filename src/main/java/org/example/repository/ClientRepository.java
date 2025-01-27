@@ -4,14 +4,13 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceException;
 import org.example.connection.ConnectionFactory;
 import org.example.domain.Client;
-import org.example.enumeration.ClientStatus;
 import org.example.util.TransactionFunction;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-public class ClientRepository implements IClienteRepository{
+public class ClientRepository implements IClientRepository {
 
     public static Logger logger;
 
@@ -60,7 +59,7 @@ public class ClientRepository implements IClienteRepository{
                     .getResultList();
 
             if (!resultListClients.isEmpty() ){
-                Client client = resultListClients.get(0);
+                Client client = resultListClients.getFirst();
                 em.remove(client);
                 return true;
             }else {

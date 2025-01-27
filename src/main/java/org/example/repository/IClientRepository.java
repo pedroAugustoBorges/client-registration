@@ -4,7 +4,7 @@ import org.example.domain.Client;
 
 import java.util.Optional;
 
-public interface IClienteRepository {
+public interface IClientRepository {
 
     void save (Client client);
 
