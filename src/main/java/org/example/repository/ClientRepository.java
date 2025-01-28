@@ -16,11 +16,13 @@ public class ClientRepository implements IClientRepository {
 
 
     @Override
-    public void save(Client client) {
-        executeTransaction(em -> {
-            em.persist(client);
-            return null;
-        });
+    public Client save(Client client) {
+       executeTransaction(em -> {
+          em.persist(client);
+          return null;
+      });
+
+      return client;
     }
 
     @Override
@@ -79,6 +81,13 @@ public class ClientRepository implements IClientRepository {
             em.merge(client);
             return null;
         });
+    }
+
+    @Override
+    public List<Client> listAllClients() {
+
+        String jpql = "SELECT c FROM Client c";
+       return executeTransaction(em -> em.createQuery(jpql, Client.class).getResultList());
     }
 
     private  <T> T  executeTransaction (TransactionFunction <T> function){

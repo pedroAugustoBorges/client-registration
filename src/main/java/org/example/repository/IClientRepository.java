@@ -2,11 +2,12 @@ package org.example.repository;
 
 import org.example.domain.Client;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IClientRepository {
 
-    void save (Client client);
+    Client save (Client client);
 
     boolean deleteClientById (Integer id);
 
@@ -15,5 +16,7 @@ public interface IClientRepository {
     void update (Client client);
 
     Optional<Client> findById (Integer id);
+
+    List<Client> listAllClients();
 
 }

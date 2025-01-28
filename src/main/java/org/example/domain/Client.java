@@ -2,7 +2,9 @@ package org.example.domain;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.example.enumeration.ClientStatus;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -13,6 +15,10 @@ import java.time.LocalDate;
 @Where(clause = "status = Active")
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+
+
 
 public class Client {
 

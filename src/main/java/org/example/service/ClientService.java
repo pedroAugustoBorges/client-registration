@@ -4,6 +4,8 @@ import org.example.domain.Client;
 import org.example.exceptions.EntityNotFoundException;
 import org.example.repository.IClientRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class ClientService {
@@ -14,12 +16,12 @@ public class ClientService {
         this.clientRepository = clientRepository;
     }
 
-    public void save (Client client) {
+    public Client save (Client client) {
         if (client == null){
             throw new NullPointerException("Client can't be null to save");
         }
 
-        clientRepository.save(client);
+        return clientRepository.save(client);
     }
 
     public Client findById(Integer id) {
@@ -56,6 +58,13 @@ public class ClientService {
         }
 
         return clientRepository.deleteClientByName(name);
+    }
+
+    public List<Client> listAllClient (){
+        List<Client> clients = clientRepository.listAllClients();
+
+        return clients.isEmpty() ? new ArrayList<>() : clients;
+
     }
 
 
