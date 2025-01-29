@@ -17,17 +17,25 @@ public class ClientRepository implements IClientRepository {
 
     @Override
     public Client save(Client client) {
-       executeTransaction(em -> {
+       return executeTransaction(em -> {
           em.persist(client);
-          return null;
+          em.flush();
+          return client;
       });
 
-      return client;
     }
 
     @Override
     public Optional<Client> findById (Integer id){
-      return executeTransaction(em -> Optional.ofNullable(em.find(Client.class, id)));
+      return executeTransaction(em ->  {
+          Client clientById = em.createQuery("SELECT c FROM Client c WHERE c.id = :id", Client.class)
+                  .setParameter("id", id)
+                  .getSingleResult();
+
+
+          return Optional.ofNullable(clientById);
+
+      });
     }
 
     @Override

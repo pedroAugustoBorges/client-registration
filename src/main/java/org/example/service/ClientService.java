@@ -25,7 +25,7 @@ public class ClientService {
     }
 
     public Client findById(Integer id) {
-        if (id == null || id < 0) {
+        if (id == null || id < 1) {
             throw new IllegalArgumentException("Id can't be null ");
 
         }
@@ -44,7 +44,7 @@ public class ClientService {
 
     public boolean deleteClientById (Integer id){
 
-        if (id == null || id < 0) {
+        if (id == null || id < 1) {
             throw new IllegalArgumentException("Id can't be null ");
         }
 

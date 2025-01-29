@@ -12,12 +12,10 @@ import org.hibernate.annotations.Where;
 import java.time.LocalDate;
 
 @SQLDelete(sql = "UPDATE Client SET status = 'Inactive' WHERE id = ?")
-@Where(clause = "status = Active")
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 
 
 public class Client {
@@ -35,4 +33,10 @@ public class Client {
     @Enumerated(EnumType.STRING)
     private ClientStatus status = ClientStatus.ACTIVE;
 
+    public Client(Integer id, String name, String email, LocalDate dateOfBirth) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.dateOfBirth = dateOfBirth;
+    }
 }
