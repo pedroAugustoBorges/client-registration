@@ -1,11 +1,8 @@
 package org.example.service;
 
 import org.example.domain.Client;
-import org.example.enumeration.ClientStatus;
-import org.example.repository.ClientRepository;
-import org.example.repository.IClientRepository;
+import org.example.repository.imp.ClientRepository;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,12 +17,13 @@ import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 class ClientServiceTest {
-
     @Mock
-    private ClientService clientService;
+    private ClientRepository clientRepository;
 
     @InjectMocks
-    private ClientRepository clientRepository;
+    private ClientService clientService;
+
+
 
 
     @Test
@@ -42,9 +40,9 @@ class ClientServiceTest {
     }
 
     @Test
-    public void shouldThrowNullPointerExceptionWhenClientItIsNull () {
+    public void shouldThrowIllegalArgumentExceptionnWhenClientItIsNull () {
 
-        Assertions.assertThrows(NullPointerException.class, () -> clientService.save(null));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> clientService.save(null));
     }
 
 
@@ -68,7 +66,6 @@ class ClientServiceTest {
 
         Mockito.verify(clientRepository).findById(1);
     }
-
 
 
 

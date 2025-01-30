@@ -11,6 +11,8 @@ public interface IClientRepository {
 
     boolean deleteClientById (Integer id);
 
+    boolean deletePhysicallyById (Integer id);
+
     boolean deleteClientByName (String name);
 
     void update (Client client);
@@ -18,5 +20,9 @@ public interface IClientRepository {
     Optional<Client> findById (Integer id);
 
     List<Client> listAllClients();
+
+    List<Client> listActiveClient();
+
+    List<Client> listInactiveClient();
 
 }

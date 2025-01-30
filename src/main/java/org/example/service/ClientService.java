@@ -6,7 +6,6 @@ import org.example.repository.IClientRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class ClientService {
 
@@ -18,7 +17,7 @@ public class ClientService {
 
     public Client save (Client client) {
         if (client == null){
-            throw new NullPointerException("Client can't be null to save");
+            throw new IllegalArgumentException("Client can't be null to save");
         }
 
         return clientRepository.save(client);
@@ -34,15 +33,15 @@ public class ClientService {
                 .orElseThrow(() -> new EntityNotFoundException("Client", id));
     }
 
-    public void update (Client client){
-        if (client == null){
+    public void update(Client client) {
+        if (client == null) {
             throw new NullPointerException("Client can't be null to update");
         }
 
         clientRepository.update(client);
     }
 
-    public boolean deleteClientById (Integer id){
+    public boolean deleteClientById(Integer id) {
 
         if (id == null || id < 1) {
             throw new IllegalArgumentException("Id can't be null ");
@@ -51,7 +50,7 @@ public class ClientService {
         return clientRepository.deleteClientById(id);
     }
 
-    public boolean deleteClientByName (String name){
+    public boolean deleteClientByName(String name) {
 
         if (name.isEmpty()) {
             throw new IllegalArgumentException("Name can't be to delete or empty to delete");
@@ -60,13 +59,32 @@ public class ClientService {
         return clientRepository.deleteClientByName(name);
     }
 
-    public List<Client> listAllClient (){
+    public List<Client> listAllClient() {
         List<Client> clients = clientRepository.listAllClients();
 
         return clients.isEmpty() ? new ArrayList<>() : clients;
 
     }
 
+    public List<Client> listActiveClient() {
+        List<Client> clients = clientRepository.listActiveClient();
+
+        return clients.isEmpty() ? new ArrayList<>() : clients;
+    }
+
+    public List<Client> listInactiveClient() {
+        List<Client> clients = clientRepository.listInactiveClient();
+
+        return clients.isEmpty() ? new ArrayList<>() : clients;
+    }
+
+    public boolean deletePysicallyById (Integer id){
+        if (id < 0 || id == null){
+            throw new IllegalArgumentException("Id invalid");
+        }
+
+       return clientRepository.deletePhysicallyById(id);
+    }
 
 
 }

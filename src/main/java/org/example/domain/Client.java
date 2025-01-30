@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.enumeration.ClientStatus;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+
 
 import java.time.LocalDate;
 
