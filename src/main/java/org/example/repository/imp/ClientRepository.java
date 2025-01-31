@@ -120,7 +120,9 @@ public class ClientRepository implements IClientRepository {
 
         String jpql = "SELECT c FROM Client c WHERE c.status = 'Inactive'";
 
-        return executeTransaction(em -> em.createQuery(jpql, Client.class)).getResultList();
+        return executeTransaction(em -> {
+            return em.createQuery(jpql, Client.class).getResultList();
+        });
     }
 
     @Override
@@ -165,5 +167,15 @@ public class ClientRepository implements IClientRepository {
         }
 
 
+    }
+
+    private <T> T executeQuery (TransactionFunction<T> t){
+        EntityManager em = ConnectionFactory.getEntityManager();
+
+        try {
+            return t.apply(em);
+        }finally {
+            ConnectionFactory.closeEntityManager(em);
+        }
     }
 }
