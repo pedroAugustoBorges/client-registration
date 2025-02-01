@@ -110,7 +110,9 @@ public class ClientRepository implements IClientRepository {
     public List<Client> listActiveClient() {
         String jpql = "SELECT c FROM Client c WHERE c.status = 'Active'";
 
-        return executeTransaction( em -> em.createQuery(jpql, Client.class)).getResultList();
+        return executeTransaction( em -> {
+            return em.createQuery(jpql, Client.class).getResultList();
+        });
     }
 
 
