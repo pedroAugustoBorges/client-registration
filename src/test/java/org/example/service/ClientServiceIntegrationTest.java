@@ -73,7 +73,6 @@ class ClientServiceIntegrationTest {
         boolean isDeleted = clientService.deletePysicallyById(clientSaved.getId());
         assertTrue(isDeleted);
 
-
         Optional<Client> clientAfterUpdated = iClientRepository.findById(clientSaved.getId());
 
         assertFalse(clientAfterUpdated.isPresent());
@@ -150,6 +149,22 @@ class ClientServiceIntegrationTest {
 
         assertThrows(EntityNotFoundException.class, () -> clientService.findById(clientSaved.getId()));
     }
+
+    @Test
+    public void updateClient_ShouldRetriveAllCLientData_WhenClienIsProvided () {
+        Client client = new Client(null, "Igor Guilherme", "mcig202k@gmail.com", LocalDate.of(2013, 12, 14));
+
+        Client clientSaved = clientService.save(client);
+
+        Client clientUpdated = new Client(1, "Pedro Juninho", "pedrin1034@hotmail.com", LocalDate.of(2003, 11, 11));
+
+        clientService.update(clientUpdated);
+
+        Client clienteFounded = clientService.findById(1);
+
+        assertEquals(clientUpdated.getName(), clienteFounded.getName());
+    }
+
 
 
 
